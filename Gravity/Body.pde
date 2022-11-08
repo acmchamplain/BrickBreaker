@@ -2,13 +2,20 @@ class Body {
   PVector pos, vel;
   float mass;
   float radius;
-  float G = 1000;
   
   Body(float x, float y, float mass, float radius){
     pos = new PVector(x,y);
     vel = new PVector(0,0);
     this.mass = mass;
     this.radius = radius;
+  }
+  
+  Body(float x, float y, float mass, float radius, PVector velocity){
+    pos = new PVector(x,y);
+    vel = new PVector(0,0);
+    this.mass = mass;
+    this.radius = radius;
+    this.vel = velocity;
   }
   
   void display(){
@@ -45,7 +52,10 @@ class Body {
      float radius = (float)Math.sqrt(pow(this.radius, 2) + pow(other.radius, 2));
      float xPos = (other.pos.x + this.pos.x) / 2;
      float yPos = (other.pos.y + this.pos.y) / 2;
-    
-    return new Body(xPos, yPos, mass, radius);
+     PVector mThis = PVector.mult(this.vel, this.mass);
+     PVector mOther = PVector.mult(other.vel, other.mass);
+     PVector vel = PVector.div(PVector.add(mThis, mOther), mass); //<>//
+     
+     return new Body(xPos, yPos, mass, radius, vel);
   }
 }

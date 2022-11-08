@@ -5,8 +5,12 @@ class Space {
     bodies = new ArrayList<Body>();
   }
   
-  void placeBody(float x, float y, float mass, float radius){
-    bodies.add(new Body(x, y, mass, radius));
+  void obliterate() {
+   bodies.clear(); 
+  }
+  
+  void placeBody(float x, float y, float mass, float radius, PVector velocity){
+    bodies.add(new Body(x, y, mass, radius, velocity));
   }
   
   void render(){
